@@ -2,7 +2,7 @@ import cv2
 import requests
 import numpy as np
 
-url = "https://example.com/path/to/your/image.jpg"  # Replace with your image URL
+url = input("Enter the URL of the image: ")
 response = requests.get(url)
 if response.status_code != 200:
     print("Image not found")
@@ -30,6 +30,4 @@ cartoon = cv2.bitwise_and(c, c, mask=e)
 cv2.imshow("Cartoon", cartoon)
 cv2.imwrite("cartoon_output.jpg", cartoon)
 cv2.waitKey(0)
-
 cv2.destroyAllWindows()
-
