@@ -1,4 +1,4 @@
-import cv2:
+import cv2
 import requests
 import numpy as np
 
@@ -32,3 +32,4 @@ cv2.imwrite("cartoon_output.jpg", cartoon)
 cv2.waitKey(0)
 
 cv2.destroyAllWindows()
+
