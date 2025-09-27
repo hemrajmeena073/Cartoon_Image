@@ -1,4 +1,4 @@
-import cv2
+import cv2:
 import requests
 import numpy as np
 
@@ -30,4 +30,5 @@ cartoon = cv2.bitwise_and(c, c, mask=e)
 cv2.imshow("Cartoon", cartoon)
 cv2.imwrite("cartoon_output.jpg", cartoon)
 cv2.waitKey(0)
+
 cv2.destroyAllWindows()
