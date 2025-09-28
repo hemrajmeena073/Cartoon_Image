@@ -25,3 +25,8 @@ def cartoonify():
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.jpg')
     cv2.imwrite(temp_file.name, cartoon)
     return send_file(temp_file.name, mimetype='image/jpeg')
+
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))  # Render assigns PORT dynamically
+    app.run(host="0.0.0.0", port=port)
