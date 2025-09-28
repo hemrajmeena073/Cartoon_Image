@@ -1,12 +1,16 @@
 from flask import Flask, request, send_file
 import cv2, requests, numpy as np
-import tempfile
+import tempfile, os
 
 app = Flask(__name__)
 
-@app.route('/cartoonify', methods=['POST'])
+@app.route("/")
+def home():
+    return "✅ Cartoonify API is running! Use POST /cartoonify with an image URL."
+
+@app.route("/cartoonify", methods=["POST"])
 def cartoonify():
-    url = request.form.get('url')
+    url = request.form.get("url")
     response = requests.get(url)
     if response.status_code != 200:
         return "Image not found", 404
@@ -22,6 +26,10 @@ def cartoonify():
     c = cv2.bilateralFilter(img, 9, 250, 250)
     cartoon = cv2.bitwise_and(c, c, mask=e)
 
-    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.jpg')
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
     cv2.imwrite(temp_file.name, cartoon)
-    return send_file(temp_file.name, mimetype='image/jpeg')
+    return send_file(temp_file.name, mimetype="image/jpeg")
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
