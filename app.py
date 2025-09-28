@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/cartoonify', methods=['POST'])
 def cartoonify():
-    url = request.form.get('url')
+    url = request.form.get('https://www.bing.com/th/id/OIP.HxV79tFMPfBAIo0BBF-sOgHaEy?w=202&h=180&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2')
     response = requests.get(url)
     if response.status_code != 200:
         return "Image not found", 404
@@ -30,5 +30,6 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))  # Render assigns PORT dynamically
     app.run(host="0.0.0.0", port=port)
+
 
 
