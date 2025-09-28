@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cartoonify Image</title>
+</head>
+<body>
+  <h2>🖼️ Cartoonify Your Image</h2>
+  <form id="cartoonForm">
+    <label for="imageUrl">Enter Image URL:</label><br>
+    <input type="text" id="imageUrl" name="url" placeholder="https://example.com/image.jpg" required><br><br>
+    <button type="submit">Cartoonify</button>
+  </form>
+
+  <h3>Result:</h3>
+  <img id="resultImage" src="" alt="Cartoonified image will appear here" style="max-width:500px;">
+
+  <script>
+    document.getElementById("cartoonForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const url = document.getElementById("imageUrl").value;
+      const formData = new FormData();
+      formData.append("url", url);
+
+      const response = await fetch("/cartoonify", {
+        method: "POST",
+        body: formData
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const imageUrl = URL.createObjectURL(blob);
+        document.getElementById("resultImage").src = imageUrl;
+      } else {
+        alert("Failed to cartoonify image.");
+      }
+    });
+  </script>
+</body>
+</html>
